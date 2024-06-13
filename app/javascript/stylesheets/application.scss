@@ -1,7 +1,5 @@
 @use '~bootstrap/scss/bootstrap';
 
-@use "sass:math"; @function abs($value) { @if type-of($value) == percentage { @return abs(#{ $value }); } @return math.abs($value); }
-
 footer {
   height: 70px;
   display: inline-block;

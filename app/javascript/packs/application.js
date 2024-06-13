@@ -11,18 +11,8 @@ import "channels"
 import "jquery";
 import "popper.js";
 import "bootstrap";
-import "../stylesheets/application"; 
+import "../stylesheets/application";
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
-
-const webpack = require('webpack')
-environment.plugins.prepend(
-  'Provide',
-  new webpack.ProvidePlugin({
-    $: 'jquery/src/jquery',
-    jQuery: 'jquery/src/jquery',
-    Popper: 'popper.js'
-  })
-)
