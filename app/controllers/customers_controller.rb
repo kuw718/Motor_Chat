@@ -1,24 +1,23 @@
 class CustomersController < ApplicationController
   before_action :disable_foreign_keys, only: [:destroy]
-  
+
   def edit
     @customer = Customer.find(params[:id])
   end
 
   def show
     @customer = Customer.find(params[:id])
-    #@post_images = @customer.post_images
     @following_customers = @customer.following_customers
     @follower_customers = @customer.follower_customers
     @post_images = @customer.post_images.page(params[:page]).per(10)
   end
-  
+
   def update
     @customer = Customer.find(params[:id])
     @customer.update(customer_params)
     redirect_to customer_path(@customer.id)
   end
-  
+
   def destroy
     @customer = Customer.find(params[:id])
     @customer.destroy
@@ -44,8 +43,14 @@ class CustomersController < ApplicationController
   def customer_params
     params.require(:customer).permit(:name, :profile_image)
   end
-  
+
   def disable_foreign_keys
-    ActiveRecord::Base.connection.execute("PRAGMA foreign_keys = OFF")
+    if ActiveRecord::Base.connection.adapter_name.downcase.include?("mysql")
+      ActiveRecord::Base.connection.execute("SET foreign_key_checks = 0")
+    elsif ActiveRecord::Base.connection.adapter_name.downcase.include?("sqlite")
+      ActiveRecord::Base.connection.execute("PRAGMA foreign_keys = OFF")
+    else
+      raise "Unsupported database adapter"
+    end
   end
 end

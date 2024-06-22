@@ -3,7 +3,6 @@ class Admin::CustomersController < ApplicationController
   before_action :set_customer, only: [:edit, :update, :destroy, :unsubscribe]
   before_action :disable_foreign_keys, only: [:destroy]
 
-
   def show
   end
 
@@ -47,6 +46,12 @@ class Admin::CustomersController < ApplicationController
   end
   
   def disable_foreign_keys
-    ActiveRecord::Base.connection.execute("PRAGMA foreign_keys = OFF")
+    if ActiveRecord::Base.connection.adapter_name.downcase.include?("mysql")
+      ActiveRecord::Base.connection.execute("SET foreign_key_checks = 0")
+    elsif ActiveRecord::Base.connection.adapter_name.downcase.include?("sqlite")
+      ActiveRecord::Base.connection.execute("PRAGMA foreign_keys = OFF")
+    else
+      raise "Unsupported database adapter"
+    end
   end
 end
