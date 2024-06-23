@@ -1,105 +1,119 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>MotorChat</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>MotorChat</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
-  </head>
+  <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
+</head>
 
 <!-- レイアウト -->
 <style>
-.search-form-container {
-  display: flex;
-  justify-content: center;
-  padding: 10px;
-  background-color: #f8f9fa;
-}
+  .search-form-container {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    background-color: #f8f9fa;
+  }
 
-.form-control:focus {
-  outline: none;
-  border-color: #5a6066;
-  box-shadow: 0 0 0 2px #5a6066;
-}
+  .form-control:focus {
+    outline: none;
+    border-color: #5a6066;
+    box-shadow: 0 0 0 2px #5a6066;
+  }
+
+  .form-control {
+    font-size: 1.4rem;
+  }
+  
+  .btn {
+    font-size: 1.4rem;
+  }
+  
+  .navbar-brand {
+    position: relative;
+    left: 1mm;
+    top:0.39mm;
+  }
 </style>
 
-  <body class="d-flex flex-column h-100">
-    <header>
-      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="/"><%= image_tag('logo.png') %></a>
-        <button class="custom-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav ml-auto">
-      <% if customer_signed_in? %>
-        <li class="nav-item">
-          <%= link_to '投稿一覧', post_images_path, class: 'nav-link' %>
-        </li>
-        <li class="nav-item">
-          <%= link_to '掲示板', groups_path, class: 'nav-link' %>
-        </li>
-        <li class="nav-item">
-          <%= link_to 'マイページ', customer_path(current_customer.id), class: 'nav-link' %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "ログアウト", destroy_customer_session_path, method: :delete, class: 'nav-link' %>
-        </li>
-      <% else %>
-        <li class="nav-item">
-          <%= link_to "新規登録", new_customer_registration_path, class: 'nav-link' %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "ログイン", new_customer_session_path, class: 'nav-link' %>
-        </li>
-        <li class="nav-item">
-        <%= link_to 'ゲストログイン', guest_sign_in_path, method: :post, class: 'nav-link' %>
-        </li>
-      <% end %>
-      </ul>
-    </div>
-    </nav>
-    </header>
-    
-    <main role="main" class="flex-shrink-0" style="margin-top: 120px;">
-      
-     <% if customer_signed_in? %>
-       <form action="/search" method="get" class="form-inline my-2 my-lg-0 justify-content-end"> <!-- justify-content-end を追加 -->
-         <div class="form-group">
-           <select name="category" class="form-control mr-sm-2">
-             <option value="users">ユーザー</option>
-             <option value="posts_images">投稿</option>
-          </select>
-         </div>
-         <input type="text" name="query" class="form-control mr-sm-2" placeholder="検索">
-         <button type="submit" class="btn btn-outline-success my-2 my-sm-0">検索</button>
-      </form>
-     <% end %>
-
-      <div class="container">
-        <%= yield %>
+<body class="d-flex flex-column h-100">
+  <header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <a class="navbar-brand" href="/"><%= image_tag('logo.png') %></a>
+      <button class="custom-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav ml-auto">
+          <% if customer_signed_in? %>
+          <li class="nav-item">
+            <%= link_to '投稿一覧', post_images_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to '掲示板', groups_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'マイページ', customer_path(current_customer.id), class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "ログアウト", destroy_customer_session_path, method: :delete, class: 'nav-link' %>
+          </li>
+          <% else %>
+          <li class="nav-item">
+            <%= link_to "新規登録", new_customer_registration_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "ログイン", new_customer_session_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'ゲストログイン', guest_sign_in_path, method: :post, class: 'nav-link' %>
+          </li>
+          <% end %>
+        </ul>
       </div>
-    </main>
-    
-        <footer>
-      <nav class="navbar navbar-expand-md navbar-dark fixed-bottom bg-dark">
-        <a class="navbar-brand navbar-brand-logo p-3"></a>
-        <button class="custom-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-          <span>Link🔗</span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-          <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                <%= link_to 'お問い合わせ・プライバシーポリシー', about_path, class: 'nav-link' %>
-              </li>
-          </ul>
-        </div>
-      </nav>
-    </footer>
-    
-  </body>
+    </nav>
+  </header>
+
+  <main role="main" class="flex-shrink-0" style="margin-top: 86px;">
+    <% if customer_signed_in? %>
+    <form action="/search" method="get" class="form-inline my-2 my-lg-0 justify-content-end main-content">
+      <div class="form-group">
+        <select name="category" class="form-control mr-sm-2">
+          <option value="users">ユーザー</option>
+          <option value="posts_images">投稿</option>
+        </select>
+      </div>
+      <input type="text" name="query" class="form-control mr-sm-2" placeholder="検索">
+      <button type="submit" class="btn btn-outline-secondary my-2 my-sm-0">検索</button>
+    </form>
+    <br><br>
+    <% end %>
+
+    <div class="container">
+      <%= yield %>
+    </div>
+  </main>
+
+  <footer>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-bottom bg-dark">
+      <a class="navbar-brand navbar-brand-logo p-3"></a>
+      <button class="custom-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span>Link🔗</span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <%= link_to 'お問い合わせ・プライバシーポリシー', about_path, class: 'nav-link' %>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </footer>
+
+</body>
 </html>

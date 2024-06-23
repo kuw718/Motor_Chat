@@ -70,6 +70,18 @@ ul {
     background-color: #778899;
     color: black;
 }
+
+.new-post-button {
+  position: fixed;
+  bottom: 70px;
+  right: 20px;
+  z-index: 999;
+}
+
+.button:hover {
+  box-shadow   : none;                 /* 影の設定 */
+  opacity      : 0.8;                  /* 透明度 */
+}
 </style>
 
 <div class='jscroll-div'> <!-- 無限スクロールに対応させさせるため　-->
@@ -93,6 +105,11 @@ ul {
 </table>
 <%= paginate @post_images %>
 </div>
+
+<!-- 新規投稿ボタン（画像） -->
+<%= link_to new_post_image_path, class: "new-post-button", id: "newPostButton" do %>
+  <%= image_tag "20739.png", class: "button", onclick: "goClick()", width: 130, height: 130, alt: "投稿ボタン" %>
+<% end %>
 
 <script>
 document.addEventListener('turbolinks:load', function() {
