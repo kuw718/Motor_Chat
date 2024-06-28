@@ -36,7 +36,9 @@
   <h3><%= @customer.name %></h3>
   <%= image_tag @customer.get_profile_image(300,300), class: "rounded image-slide-down profile-image-profile" %>
   <% if @customer.id == current_customer.id %>
-  <p><%= link_to "プロフィール編集", edit_customer_path(@customer) %></p>
+  <br><br>
+  <h5><%= link_to "●プロフィールの編集●", edit_customer_path(@customer) %></h5>
+  <br>
   <% end %>
 </div>
 
@@ -65,7 +67,8 @@
           <% end %>
         <% end %>
       </td>
-<p><%= link_to 'いいねした投稿一覧', liked_posts_customer_path(@customer) %><p>
+<h5><%= link_to 'いいねした投稿一覧', liked_posts_customer_path(@customer) %></h5>
+<br>
 <!-- ユーザーの投稿一覧 -->
 <%= render 'post_images/list', post_images: @post_images %>
 
