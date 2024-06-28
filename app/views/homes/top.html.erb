@@ -22,6 +22,11 @@ body {
     color: #000000; /* ライトモードのテキスト色 */
 }
 
+.card-name {
+    color: #000000; /* ライトモードのテキスト色 */
+    font-size: 1.3em;
+}
+
 .card-text .badge {
     background-color: #333333; /* カーボン色 */
     color: #ffffff; /* ボタンテキスト色 */
@@ -75,14 +80,10 @@ ul {
           <%= image_tag post_image.resized_image, class: "card-img-top image-slide-down" %>
         <% end %>
         <div class="card-body">
-          <p class="card-text"><%= post_image.title %></p>
+          <h5 class="card-title"><%= post_image.title %></h5>
           <p class="card-text"><%= post_image.caption %></p>
-          <div class="d-flex align-items-center">
-              <%= image_tag post_image.customer.get_profile_image(100, 100), class: "rounded-circle me-2 image-slide-down" %>
-            <p class="card-text mb-0"><%= post_image.customer.name %></p>
-          </div>
-          <p class="card-text"><%= post_image.created_at.strftime('%Y/%m/%d') %></p>
           <p class="card-text"><%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id) %></p>
+          <p class="card-name"><%= image_tag post_image.customer.get_profile_image(100,100), class: "rounded image-slide-down profile-image" %>&nbsp;<%= post_image.customer.name %></p>
         </div>
       </div>
     <% end %>
@@ -104,7 +105,7 @@ ul {
           <h5 class="card-title"><%= post_image.title %></h5>
           <p class="card-text"><%= post_image.caption %></p>
           <p class="card-text"><%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id) %></p>
-          <p class="card-text"><%= image_tag post_image.customer.get_profile_image(100,100), class: "rounded image-slide-down profile-image" %>&emsp;<%= post_image.customer.name %>さん</p>
+          <p class="card-name"><%= image_tag post_image.customer.get_profile_image(100,100), class: "rounded image-slide-down profile-image" %>&nbsp;<%= post_image.customer.name %></p>
         </div>
       </div>
     </div>
