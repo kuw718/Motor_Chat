@@ -89,7 +89,7 @@ ul {
 <% @post_images.each do |post_image| %>
   <div class="card mb-3">
     <%= link_to post_image_path(post_image.id) do %>
-      <%= image_tag post_image.resized_image, class: "card-img-top image-slide-down", loading: "lazy" %>
+      <%= image_tag post_image.resized_image, class: "card-img-top image-slide-down" %>
     <% end %>
     <div class="card-body">
       <h5 class="card-text">
