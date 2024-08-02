@@ -98,8 +98,9 @@
     <%= f.label :profile_image, "プロフィール画像" %>
     <div class="file-input-wrapper">
       <span class="file-input-label profile-image-button">プロフィール画像を選択</span>
-      <%= f.file_field :profile_image, accept: "image/*", class: "form-control" %>
+      <%= f.file_field :profile_image, accept: "image/*", class: "form-control", id: "profileImageInput" %>
       <br>
+      <p id="file-name-display"></p>
       <p>※画像の形や大きさによっては正しく画像が表示されない場合がございます</p>
     </div>
   </div>
@@ -123,3 +124,16 @@
 
 <%= button_to "アカウントを削除する", customer_path(@customer), data: { confirm: "本当にアカウントを削除しますか？" }, method: :delete, class: "btn btn-danger" %>
 
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const profileImageInput = document.getElementById('profileImageInput');
+  const fileNameDisplay = document.getElementById('file-name-display');
+
+  if (profileImageInput) {
+    profileImageInput.addEventListener('change', function() {
+      const fileName = profileImageInput.files[0] ? profileImageInput.files[0].name : '';
+      fileNameDisplay.textContent = fileName;
+    });
+  }
+});
+</script>
