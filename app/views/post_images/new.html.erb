@@ -139,11 +139,6 @@ label {
     <h1>新規投稿</h1>
   </div>
 
-  <div class="form-group file-input-wrapper">
-    <%= f.label :image, "画像", class: "file-input-label" %>
-    <%= f.file_field :image, accept: "image/*", class: "form-control" %>
-  </div>
-
   <div class="form-group">
     <%= f.label :title, "タイトル" %>
     <%= f.text_field :title, class: "form-control" %>
@@ -153,8 +148,28 @@ label {
     <%= f.label :caption, "説明" %>
     <%= f.text_area :caption, class: "form-control" %>
   </div>
+  <br>
+  <div class="form-group file-input-wrapper">
+    <%= f.label :image, "画像を選択", class: "file-input-label" %>
+    <%= f.file_field :image, accept: "image/*", class: "form-control", id: 'imageInputCustom' %>
+    <p id="image-file-name-display-custom"></p>
+  </div>
 
   <div class="form-group">
     <%= f.submit '投稿', class: "btn btn-primary btn-lg btn-block submit-btn" %>
   </div>
 <% end %>
+
+<script>
+document.addEventListener("turbolinks:load", function() {
+  const imageInputCustom = document.getElementById('imageInputCustom');
+  const imageFileNameDisplayCustom = document.getElementById('image-file-name-display-custom');
+
+  if (imageInputCustom) {
+    imageInputCustom.addEventListener('change', function() {
+      const fileName = imageInputCustom.files[0] ? imageInputCustom.files[0].name : '';
+      imageFileNameDisplayCustom.textContent = fileName;
+    });
+  }
+});
+</script>
