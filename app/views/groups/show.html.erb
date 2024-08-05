@@ -123,6 +123,37 @@ a:hover {
   .request-join-button:hover {
     background-color: black;
   }
+  
+  /* ファイル選択スタイル */
+  .file-input-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    width: 100%;
+  }
+
+  .file-input-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .file-input-wrapper .file-input-label {
+    display: block;
+    padding: 10px 15px;
+    background-color: #778899;
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .file-input-wrapper .file-input-label:hover {
+    background-color: #0056b3;
+  }
 </style>
 
 
@@ -193,11 +224,29 @@ a:hover {
       <div class="chat-form">
         <%= form_with(model: [@group, @group.posts.build], local: true, class: "post-form", multipart: true) do |f| %>
           <%= f.text_area :comment, placeholder: "コメント", class: "comment-field" %>
-          <%= f.file_field :image %>
-          <br><br>
+      <br><br>
+      <div class="form-group file-input-wrapper">
+        <%= f.label :image, "画像を選択", class: "file-input-label" %>
+        <%= f.file_field :image, accept: "image/*", class: "form-control", id: 'imageInputCustom' %>
+        <p id="image-file-name-display-custom"></p>
+      </div>
           <%= f.submit '投稿', class: "post-button" %>
         <% end %>
       </div>
     <% end %>
   </div>
 </div>
+
+<script>
+document.addEventListener("turbolinks:load", function() {
+  const imageInputCustom = document.getElementById('imageInputCustom');
+  const imageFileNameDisplayCustom = document.getElementById('image-file-name-display-custom');
+
+  if (imageInputCustom) {
+    imageInputCustom.addEventListener('change', function() {
+      const fileName = imageInputCustom.files[0] ? imageInputCustom.files[0].name : '';
+      imageFileNameDisplayCustom.textContent = fileName;
+    });
+  }
+});
+</script>
