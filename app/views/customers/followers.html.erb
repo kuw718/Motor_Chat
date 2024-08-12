@@ -37,7 +37,7 @@
         <% if current_customer != customer %>
         <td>
         <% if current_customer.following?(customer) %>
-          <%= link_to "フォローを解除", customer_relationships_path(customer), method: :delete, class: "btn custom-btn-danger small-btn" %>
+          <%= link_to "フォロー解除", customer_relationships_path(customer), method: :delete, class: "btn custom-btn-danger small-btn" %>
         <% else %>
           <%= link_to "フォローバック", customer_relationships_path(customer), method: :post, class: "btn custom-btn-grey small-btn" %>
         <% end %>
