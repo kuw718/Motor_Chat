@@ -1,7 +1,7 @@
 <style>
   .small-btn {
   padding: 2px 8px;
-  font-size: 7px;
+  font-size: 12px;
   }
   .custom-btn-danger {
   background-color: #b30000; /* 濃い赤 */
@@ -31,7 +31,7 @@
           <td><%= customer.name %>
           <td>
          <% if current_customer.following?(customer) %>
-          <%= link_to "解除", customer_relationships_path(customer.id), method: :delete, class: "btn custom-btn-danger small-btn" %>
+          <%= link_to "フォロー解除", customer_relationships_path(customer.id), method: :delete, class: "btn custom-btn-danger small-btn" %>
          <% end %>
           </td>
         </tr>
