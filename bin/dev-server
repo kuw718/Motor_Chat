@@ -1,0 +1,14 @@
+#!/bin/bash
+# Unset DATABASE_URL to use database.yml configuration for SQLite3
+unset DATABASE_URL
+unset PGHOST
+unset PGPORT
+unset PGUSER
+unset PGPASSWORD
+unset PGDATABASE
+
+# Fix for Node.js 17+ OpenSSL compatibility
+export NODE_OPTIONS="--openssl-legacy-provider"
+
+# Start Rails server
+bundle exec rails server -b 0.0.0.0 -p 5000

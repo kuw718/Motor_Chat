@@ -13,9 +13,12 @@ threads min_threads_count, max_threads_count
 #
 worker_timeout 3600 if ENV.fetch("RAILS_ENV", "development") == "development"
 
-# Specifies the `port` that Puma will listen on to receive requests; default is 3000.
+# Specifies the `port` that Puma will listen on to receive requests; default is 5000 for Replit.
 #
-port ENV.fetch("PORT") { 3000 }
+port ENV.fetch("PORT") { 5000 }
+
+# Bind to 0.0.0.0 for Replit (required for the proxy to work)
+bind "tcp://0.0.0.0:#{ENV.fetch("PORT") { 5000 }}"
 
 # Specifies the `environment` that Puma will run in.
 #
@@ -42,10 +45,10 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
 
-bind "unix://#{Rails.root}/tmp/sockets/puma.sock"
-rails_root = Dir.pwd
-# 本番環境のみデーモン起動
-if Rails.env.production?
+# Only bind to unix socket in production
+if ENV.fetch("RAILS_ENV", "development") == "production"
+  bind "unix://#{Rails.root}/tmp/sockets/puma.sock"
+  rails_root = Dir.pwd
   pidfile File.join(rails_root, 'tmp', 'pids', 'puma.pid')
   state_path File.join(rails_root, 'tmp', 'pids', 'puma.state')
   stdout_redirect(
@@ -53,6 +56,5 @@ if Rails.env.production?
     File.join(rails_root, 'log', 'puma-error.log'),
     true
   )
-  # デーモン
   daemonize
 end
