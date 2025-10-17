@@ -1,3 +1,9 @@
+require 'fileutils'
+safe_tmp = File.expand_path('bundle_tmp', __dir__)
+FileUtils.mkdir_p(safe_tmp)
+ENV['TMPDIR'] = safe_tmp
+ENV['BUNDLE_TMP'] = safe_tmp
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
