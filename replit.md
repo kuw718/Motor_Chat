@@ -4,6 +4,11 @@
 Motor Chat is a Ruby on Rails community platform for car enthusiasts. It allows users to share photos, join groups, post comments, and connect with other car lovers. The application is built in Japanese and includes features for user authentication (both customers and admins), social interactions, and group management.
 
 ## Recent Changes
+**Date: October 17, 2025**
+- Applied TMPDIR fix for Bundler deployment issues (world-writable workspace directory)
+- Updated deployment configuration to use dedicated `/tmp/bundle_tmp` directory
+- Updated `bin/dev-server` script to include TMPDIR configuration
+
 **Date: October 6, 2025**
 - Initial setup for Replit environment
 - Updated Ruby version from 3.1.2 to 3.2.2 to match available Replit modules
@@ -52,6 +57,7 @@ Key models include:
 ### Environment Configuration
 The application requires specific environment variable handling because Replit provides PostgreSQL variables by default, but this app uses SQLite3 in development:
 
+- `TMPDIR=/tmp/bundle_tmp` is set to avoid Bundler security issues with world-writable directories
 - `DATABASE_URL` must be unset to use database.yml configuration
 - PostgreSQL-related variables (PGHOST, PGPORT, etc.) are unset in the startup script
 - `NODE_OPTIONS="--openssl-legacy-provider"` is required for Webpack compatibility
@@ -63,9 +69,10 @@ bin/dev-server
 ```
 
 This script:
-1. Unsets PostgreSQL-related environment variables
-2. Sets NODE_OPTIONS for legacy OpenSSL support
-3. Starts Rails server on 0.0.0.0:5000
+1. Creates and sets TMPDIR to a dedicated directory (`/tmp/bundle_tmp`) for Bundler
+2. Unsets PostgreSQL-related environment variables
+3. Sets NODE_OPTIONS for legacy OpenSSL support
+4. Starts Rails server on 0.0.0.0:5000
 
 ### Important Configuration Files
 - `config/puma.rb`: Configured to bind to 0.0.0.0:5000 for Replit compatibility
@@ -75,9 +82,10 @@ This script:
 
 ## Deployment
 The application is configured for VM deployment with:
-- Build step: Installs gems (excluding dev/test) and precompiles assets
-- Run step: Runs migrations and starts Puma server
+- Build step: Creates TMPDIR, installs gems (excluding dev/test), and precompiles assets
+- Run step: Creates TMPDIR, runs migrations, and starts Puma server
 - Production uses MySQL2 database (configured via ENV variables)
+- TMPDIR is set to `/tmp/bundle_tmp` to resolve Bundler security issues with world-writable directories
 
 ## Known Issues
 - Webpacker compilation shows deprecation warnings for Bootstrap SCSS (non-critical)

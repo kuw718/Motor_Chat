@@ -33,10 +33,12 @@
 
 <!-- ユーザーの詳細 -->
 <div>
-  <h3><%= @customer.name %></h3>
-  <%= image_tag @customer.get_profile_image(300,300), class: "rounded image-slide-down profile-image-profile" %>
+
+  <%= image_tag @customer.get_profile_image, class: "rounded image-slide-down profile-image-profile" %>
+  <pre></pre>
+  <h5 style="color: #3B3B3B;">●ユーザー名●</h5><h2 style="margin-left: 0px;"><%= @customer.name %></h2>
   <% if @customer.id == current_customer.id %>
-  <br><br>
+  <br>
   <h5><%= link_to "●プロフィールの編集●", edit_customer_path(@customer) %></h5>
   <br>
   <% end %>
@@ -67,7 +69,6 @@
           <% end %>
         <% end %>
       </td>
-<h5><%= link_to 'いいねした投稿一覧', liked_posts_customer_path(@customer) %></h5>
 <br>
 <!-- ユーザーの投稿一覧 -->
 <%= render 'post_images/list', post_images: @post_images %>

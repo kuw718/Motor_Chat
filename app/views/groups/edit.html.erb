@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>グループ編集</title>
+<title>スレッド編集</title>
 <style>
 /* スタイル */
 .group-new-form {
@@ -52,16 +52,11 @@
 </style>
 </head>
 <body>
-<h1>グループ編集</h1>
+  <div style="text-align: center;"><h1>スレッドを編集する</h1></div><br><br><br>
 <%= form_with(model: @group, local: true, html: { class: "group-new-form" }) do |f| %>
   <div class="form-group">
-    <%= f.label :name, 'グループ名' %>
+    <%= f.label :name, 'タイトル' %>
     <%= f.text_field :name, class: 'form-control' %>
-  </div>
-  <!-- 管理者用パスワード入力フォーム -->
-  <div class="form-group">
-    <%= label_tag 'admin_password', '管理者用パスワード' %>
-    <%= password_field_tag 'admin_password', nil, class: 'form-control' %>
   </div>
   <!-- 制御する要素 -->
   <div id="hiddenForm" class="form-group" style="display: none;">
@@ -72,20 +67,6 @@
   </div>
 <% end %>
 <!-- JavaScript -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // 管理者用パスワードを入力したときの処理
-  document.getElementById('admin_password').addEventListener('input', function() {
-    var password = this.value;
-    // 管理者用パスワードが"2375485677843"の場合、要素を表示する,ただしページが表示されてから１度リロードしてからパスワードを打たないとパスワードが反映されないことに注意！！
-    if (password === '2375s485a677d843i') {
-      document.getElementById('hiddenForm').style.display = 'block';
-    } else {
-      document.getElementById('hiddenForm').style.display = 'none';
-    }
-  });
-});
-</script>
 </body>
 </html>
 

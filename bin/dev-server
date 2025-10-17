@@ -1,4 +1,8 @@
 #!/bin/bash
+# Create and set dedicated temporary directory for Bundler
+mkdir -p /tmp/bundle_tmp
+export TMPDIR=/tmp/bundle_tmp
+
 # Unset DATABASE_URL to use database.yml configuration for SQLite3
 unset DATABASE_URL
 unset PGHOST

@@ -1,128 +1,127 @@
-<!-- レイアウト -->
-<style>
-.profile-image {
-    width: 100px;
-    height: 90px;
-    object-fit: cover; /* アスペクト比を維持しながら正方形に収めるのに便利 */
-}
+          <!-- レイアウト -->
+          <style>
+          .profile-image {
+              width: 100px;
+              height: 90px;
+              object-fit: cover;
+          }
 
-.image-slide-down {
-  opacity: 0;
-  animation: slideDown 5s forwards;
-}
+          .image-slide-down {
+            opacity: 0;
+            animation: slideDown 5s forwards;
+          }
 
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-3px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+          @keyframes slideDown {
+            from {
+              opacity: 0;
+              transform: translateY(-3px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
 
-.card-body {
-    padding: 15px;
-}
+          .card-body {
+              padding: 15px;
+          }
 
-.card-title {
-    font-size: 1.2em;
-    color: #000000; /* ライトモードのテキスト色 */
-}
+          .card-title {
+              font-size: 1.2em;
+              color: #000000;
+          }
 
-.card-text {
-    color: #000000; /* ライトモードのテキスト色 */
-}
+          .card-text {
+              color: #000000;
+          }
 
-.card-text .badge {
-    background-color: #333333; /* カーボン色 */
-    color: #ffffff; /* ボタンテキスト色 */
-    border-radius: 5px;
-    padding: 5px 10px;
-}
+          .card-text .badge {
+              background-color: #333333;
+              color: #ffffff;
+              border-radius: 5px;
+              padding: 5px 10px;
+          }
 
-.card-text .badge:hover {
-    background-color: #cccccc; /* ホバー時の背景色 */
-    color: #333333; /* ホバー時のテキスト色 */
-}
+          .card-text .badge:hover {
+              background-color: #cccccc;
+              color: #333333;
+          }
 
+          a {
+              color: #333333;
+              text-decoration: none;
+          }
 
+          a:hover {
+              color: #333333;
+          }
 
-/* リンクスタイル */
-a {
-    color: #333333; /* リンクのデフォルト色 */
-    text-decoration: none;
-}
+          ul {
+              list-style: none;
+              padding: 0;
+              margin: 0;
+          }
 
-a:hover {
-    color: #333333; /* ホバー時のリンク色 */
-}
+          .custom-badge {
+              background-color: #778899;
+              color: black;
+          }
 
-/* リストスタイル */
-ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
+          .new-post-button {
+            position: fixed;
+            bottom: 70px;
+            right: 20px;
+            z-index: 999;
+          }
 
-.custom-badge {
-    background-color: #778899;
-    color: black;
-}
+          .button:hover {
+            box-shadow: none;
+            opacity: 0.8;
+          }
+          </style>
 
-.new-post-button {
-  position: fixed;
-  bottom: 70px;
-  right: 20px;
-  z-index: 999;
-}
+          <div class='jscroll-div'>
+            <table class='table table-hover table-inverse'>
+              <% @post_images.each do |post_image| %>
+                <div class="card mb-3">
+                  <%= link_to post_image_path(post_image.id) do %>
+                    <!-- MiniMagickなし：HTML側でサイズ指定 -->
+                    <%= image_tag post_image.resized_image, class: "card-img-top image-slide-down" %>
+                  <% end %>
 
-.button:hover {
-  box-shadow   : none;                 /* 影の設定 */
-  opacity      : 0.8;                  /* 透明度 */
-}
-</style>
+                  <div class="card-body">
+                    <h5 class="card-text">
+                      <!-- MiniMagickなし：HTML側でサイズ指定 -->
+                      <%= image_tag post_image.customer.get_profile_image, class: "rounded image-slide-down profile-image", size: "100x100" %>
+                      <span class="customer-name"><%= post_image.customer.name %></span>
+                    </h5>
+                    <h3 class="card-title"><%= post_image.title %></h3>
+                    <p class="card-text"><%= post_image.caption %></p>
+                    <p class="card-text"><%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id) %></p>
+                  </div>
+                </div>
+              <% end %>
+            </table>
+            <%= paginate @post_images %>
+          </div>
 
-<div class='jscroll-div'> <!-- 無限スクロールに対応させさせるため　-->
-<table class='table table-hover table-inverse'>
-<% @post_images.each do |post_image| %>
-  <div class="card mb-3">
-    <%= link_to post_image_path(post_image.id) do %>
-      <%= image_tag post_image.resized_image, class: "card-img-top image-slide-down" %>
-    <% end %>
-    <div class="card-body">
-      <h5 class="card-text">
-        <%= image_tag post_image.customer.get_profile_image(210,210), class: "rounded image-slide-down profile-image" %>
-        <span class="customer-name"><%= post_image.customer.name %></span>
-      </h5>
-      <h3 class="card-title"><%= post_image.title %></h3>
-      <p class="card-text"><%= post_image.caption %></p>
-      <p class="card-text"><%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id) %></p>
-    </div>
-  </div>
-<% end %>
-</table>
-<%= paginate @post_images %>
-</div>
+          <script>
+          document.addEventListener('turbolinks:load', function() {
+            $('.jscroll-div').jscroll({
+              autoTrigger: true,
+              loadingHtml: '<p>読み込み中...</p>',
+              padding: 10,
+              nextSelector: '.pagination .next a',
+              contentSelector: 'div.jscroll-div',
+              callback: function() {
+                $('.pagination').remove();
+              }
+            });
+          });
+          </script>
 
-<script>
-document.addEventListener('turbolinks:load', function() {
-  $('.jscroll-div').jscroll({
-    autoTrigger: true,
-    loadingHtml: '<p>読み込み中...</p>', // ローディングメッセージ
-    padding: 10,
-    nextSelector: '.pagination .next a', // 次ページリンクのセレクタ
-    contentSelector: 'div.jscroll-div', // 無限スクロールで読み込むコンテンツ全体を指定
-    callback: function() {
-      $('.pagination').remove(); // 読み込み後にページネーションリンクを削除
-    }
-  });
-});
-</script>
-
-<style>
-  .pagination {
-    visibility: hidden;
-  }
-</style>
+          <style>
+            .pagination {
+              visibility: hidden;
+            }
+          </style>

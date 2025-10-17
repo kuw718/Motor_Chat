@@ -162,12 +162,12 @@ body {
     <h1>スレッド一覧</h1>
     <div class="group-search">
         <%= form_with url: groups_path, method: :get, local: true, class: "group-search-form" do |f| %>
-            <%= f.text_field :keyword, placeholder: "スレ検索", class: "group-search-form-input" %>
+            <%= f.text_field :keyword, placeholder: "スレッドの検索", class: "group-search-form-input" %>
             <%= f.submit '検索', class: "group-search-form-submit" %>
         <% end %>
     </div>
     <div class="group-new">
-        <%= link_to 'スレ作成', new_group_path, class: "group-new-link" %>
+        <%= link_to 'スレッド作成', new_group_path, class: "group-new-link" %>
     </div>
 
     <% if @other_groups.present? %>
@@ -190,7 +190,7 @@ body {
       </div>
     <% end %>
 
-    <h2>参加中・参加申請中のスレ</h2>
+    <h2>参加中・参加申請中のスレッド</h2>
     <% if @group_joining.empty? %>
         <p class="no-groups"><%= @group_lists_none %></p>
     <% else %>

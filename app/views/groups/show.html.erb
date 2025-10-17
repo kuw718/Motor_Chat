@@ -1,252 +1,246 @@
-<!-- レイアウト -->
-<style>
-  .profile-image-chat {
-    width: 38px;
-    height: 28px;
-    object-fit: cover;
-  }
-  .group-show {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  .post {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 10px;
-  }
-  .post-content {
-    display: flex;
-    align-items: center;
-    margin-bottom: 5px;
-  }
-  .post-number {
-    font-weight: bold;
-    margin-right: 5px;
-    color: black; /* 追加 */
-  }
-  .post-customer {
-    font-weight: bold;
-    margin-right: 5px;
-    color: black; /* 追加 */
-  }
-  .post-date {
-    font-size: 0.8em;
-    color: #666;
-    margin-left: auto;
-  }
-  .post-comment {
-    margin-bottom: 10px;
-    color: black; /* 追加 */
-  }
-  .post-image {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 10px;
-  }
-  .join-request {
-    margin-bottom: 10px;
-  }
-  .chat-form {
-    margin-top: 20px;
-    padding: 5px;
-  }
-  .comment-field {
-    width: 100%;
-    height: 60px;
-    padding: 5px;
-    box-sizing: border-box;
-    margin-bottom: 10px;
-  }
-  .post-button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #2f6ba1;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  /* リンクスタイル */
-a {
-    color: #333333; /* リンクのデフォルト色 */
-    text-decoration: none;
-}
+    <!-- レイアウト -->
+    <style>
+      .profile-image-chat {
+        width: 38px;
+        height: 28px;
+        object-fit: cover;
+      }
+      .group-show {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .post {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+      .post-content {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+      }
+      .post-number {
+        font-weight: bold;
+        margin-right: 5px;
+        color: black;
+      }
+      .post-customer {
+        font-weight: bold;
+        margin-right: 5px;
+        color: black;
+      }
+      .post-date {
+        font-size: 0.8em;
+        color: #666;
+        margin-left: auto;
+      }
+      .post-comment {
+        margin-bottom: 10px;
+        color: black;
+      }
+      .post-image {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+      }
+      .join-request {
+        margin-bottom: 10px;
+      }
+      .chat-form {
+        margin-top: 20px;
+        padding: 5px;
+      }
+      .comment-field {
+        width: 100%;
+        height: 60px;
+        padding: 5px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+      }
+      .post-button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #2f6ba1;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
 
-a:hover {
-    color: #333333; /* ホバー時のリンク色 */
-}
+      /* リンクスタイル */
+      a {
+        color: #333333;
+        text-decoration: none;
+      }
 
- .join-request {
-    background-color: #f9f9f9;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 10px;
-  }
+      a:hover {
+        color: #333333;
+      }
 
-  .join-request span {
-    font-weight: bold;
-    color: #333;
-    margin-right: 10px;
-  }
+      .join-request {
+        background-color: #f9f9f9;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 10px;
+      }
 
-  .join-request button {
-    margin-right: 5px;
-    background-color: #2f6ba1;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    padding: 5px 10px;
-    cursor: pointer;
-  }
+      .join-request span {
+        font-weight: bold;
+        color: #333;
+        margin-right: 10px;
+      }
 
-  .join-request button:hover {
-    background-color: #1d4a7a;
-  }
+      .join-request button {
+        margin-right: 5px;
+        background-color: #2f6ba1;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        padding: 5px 10px;
+        cursor: pointer;
+      }
 
-  .approve-join-button,
-  .reject-join-button,
-  .request-join-button {
-    margin-right: 5px;
-    background-color: gray;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    padding: 5px 10px;
-    cursor: pointer;
-    margin-top: 10px;
-  }
+      .join-request button:hover {
+        background-color: #1d4a7a;
+      }
 
-  .approve-join-button:hover,
-  .reject-join-button:hover,
-  .request-join-button:hover {
-    background-color: black;
-  }
-  
-  /* ファイル選択スタイル */
-  .file-input-wrapper {
-    position: relative;
-    overflow: hidden;
-    display: inline-block;
-    width: 100%;
-  }
+      .approve-join-button,
+      .reject-join-button,
+      .request-join-button {
+        margin-right: 5px;
+        background-color: gray;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        padding: 5px 10px;
+        cursor: pointer;
+        margin-top: 10px;
+      }
 
-  .file-input-wrapper input[type=file] {
-    font-size: 100px;
-    position: absolute;
-    left: 0;
-    top: 0;
-    opacity: 0;
-    cursor: pointer;
-  }
+      .approve-join-button:hover,
+      .reject-join-button:hover,
+      .request-join-button:hover {
+        background-color: black;
+      }
 
-  .file-input-wrapper .file-input-label {
-    display: block;
-    padding: 10px 15px;
-    background-color: #778899;
-    color: #fff;
-    border-radius: 5px;
-    text-align: center;
-    cursor: pointer;
-  }
+      /* ファイル選択スタイル */
+      .file-input-wrapper {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+        width: 100%;
+      }
 
-  .file-input-wrapper .file-input-label:hover {
-    background-color: #0056b3;
-  }
-</style>
+      .file-input-wrapper input[type=file] {
+        font-size: 100px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+        cursor: pointer;
+      }
 
+      .file-input-wrapper .file-input-label {
+        display: block;
+        padding: 10px 15px;
+        background-color: #778899;
+        color: #fff;
+        border-radius: 5px;
+        text-align: center;
+        cursor: pointer;
+      }
 
-  <div class="chat-group-show-talk">
-    <% if @posts.present? %>
-      <div class="posts">
-        <% @posts.each_with_index do |post, index| %>
-          <div class="post">
-            <div class="post-content">
-              <span class="post-number"><%= index + 1 %>:</span>
-              <% if post.customer.present? %>
-                <%= link_to customer_path(post.customer), class: "post-customer-link" do %>
-                  <% if post.customer.profile_image.attached? %>
-                    <%= image_tag post.customer.get_profile_image(230, 230), class: "rounded image-slide-down profile-image-chat" %>
-                  <% else %>
-                    <%= image_tag "default_profile_image.jpg", class: "rounded-circle", width: 80, height: 80 %>
+      .file-input-wrapper .file-input-label:hover {
+        background-color: #0056b3;
+      }
+    </style>
+
+    <div class="chat-group-show-talk">
+      <% if @posts.present? %>
+        <div class="posts">
+          <% @posts.each_with_index do |post, index| %>
+            <div class="post">
+              <div class="post-content">
+                <span class="post-number"><%= index + 1 %>:</span>
+                <% if post.customer.present? %>
+                  <%= link_to customer_path(post.customer), class: "post-customer-link" do %>
+                    <% if post.customer.profile_image.attached? %>
+                      <%= image_tag post.customer.get_profile_image, class: "rounded image-slide-down profile-image-chat" %>
+                    <% else %>
+                      <%= image_tag "default_profile_image.jpg", class: "rounded-circle profile-image-chat" %>
+                    <% end %>
+                    <span class="post-customer"><%= post.customer.name %></span>
                   <% end %>
-                  <span class="post-customer"><%= post.customer.name %></span>
+                <% else %>
+                  <span class="post-customer">匿名ユーザー</span>
                 <% end %>
-              <% else %>
-                <span class="post-customer">匿名ユーザー</span>
+                <span class="post-date"><%= post.created_at.in_time_zone("Tokyo").strftime("%Y-%m-%d %H:%M:%S") %></span>
+              </div>
+              <div class="post-comment"><%= post.comment %></div>
+              <% if post.image.attached? %>
+                <%= image_tag post.image, class: "post-image" %>
               <% end %>
-              <span class="post-date"><%= post.created_at.in_time_zone("Tokyo").strftime("%Y-%m-%d %H:%M:%S") %></span>
             </div>
-            <div class="post-comment"><%= post.comment %></div>
-            <% if post.image.attached? %>
-              <%= image_tag post.image.variant(resize_to_limit: [270, 200]), class: "post-image" %>
+          <% end %>
+        </div>
+      <% else %>
+        <p>投稿がありません。</p>
+      <% end %>
+
+      <!-- 参加申請ボタン -->
+      <% unless @group.customers.include?(current_customer) %>
+        <% if @group.join_requests.exists?(customer: current_customer) %>
+          <p>・参加申請中です。オーナーからの入室許可が出るまでしばらくお待ちください。
+          <br><br>・再度「インターホンを鳴らす(参加申請をする)」ボタンが表示された場合はオーナーが留守だった、寝ている、入室許可が許可されなかった等、何らかの理由で入室に失敗した可能性があります。
+          <br><br>・入室をご希望の方はもう一度,再度表示された「インターホンを鳴らす(参加申請をする)」ボタンをクリックしてください。</p>
+          <%= button_to '参加申請を取り下げる', withdraw_join_request_group_path(@group), method: :delete, class: "request-join-button" %>
+        <% else %>
+          <%= button_to 'インターホンを鳴らす♪(参加申請をする)', request_join_group_path(@group), method: :post, class: "request-join-button" %>
+        <% end %>
+      <% end %>
+
+      <% if current_customer == @group.customers.first %>
+        <div class="group-actions">
+          <%= link_to 'スレッドを削除する', group_path(@group), method: :delete, data: { confirm: '本当に削除しますか?' }, class: "delete-group-link" %>
+          /
+          <%= link_to 'スレッドの編集', edit_group_path(@group), method: :get, class: "edit-group-link" %>
+        </div>
+        <br>
+        <% @group.join_requests.each do |request| %>
+          <div class="join-request">
+            <% if request.customer.present? %>
+              <span><%= request.customer.name %> さんの参加申請</span>
+            <% else %>
+              <span>退会済みのユーザーなので,拒否を押してください</span>
             <% end %>
+            <%= button_to '承認する', approve_join_group_path(@group, request_id: request.id), method: :post, class: "approve-join-button" %>
+            <%= button_to '拒否する', reject_join_group_path(@group, request_id: request.id), method: :post, class: "reject-join-button" %>
           </div>
         <% end %>
-      </div>
-    <% else %>
-      <p>投稿がありません。</p>
-    <% end %>
-
-    <!-- 参加申請ボタン -->
-    <% unless @group.customers.include?(current_customer) %>
-      <% if @group.join_requests.exists?(customer: current_customer) %>
-        <p>・参加申請中です。オーナーからの入室許可が出るまでしばらくお待ちください。
-        <br><br>・再度「インターホンを鳴らす(参加申請をする)」ボタンが表示された場合はオーナーが留守だった、寝ている、入室許可が許可されなかった等、何らかの理由で入室に失敗した可能性があります。
-        <br><br>・入室をご希望の方はもう一度,再度表示された「インターホンを鳴らす(参加申請をする)」ボタンをクリックしてください。</p>
-        <%= button_to '参加申請を取り下げる', withdraw_join_request_group_path(@group), method: :delete, class: "request-join-button" %>
-      <% else %>
-        <%= button_to 'インターホンを鳴らす♪(参加申請をする)', request_join_group_path(@group), method: :post, class: "request-join-button" %>
       <% end %>
-    <% end %>
 
-    <% if current_customer == @group.customers.first %>
-      <div class="group-actions">
-        <%= link_to 'スレを削除する', group_path(@group), method: :delete, data: { confirm: '本当に削除しますか?' }, class: "delete-group-link" %>
-        <%= link_to 'スレの編集', edit_group_path(@group), method: :get, class: "edit-group-link" %>
-      </div>
-      <br>
-      <% @group.join_requests.each do |request| %>
-        <div class="join-request">
-          <% if request.customer.present? %>
-            <span><%= request.customer.name %> さんの参加申請</span>
-          <% else %>
-            <span>退会済みのユーザーなので,拒否を押してください</span>
+      <% if current_customer == @group.customers.first || @group.customers.include?(current_customer) || (@group.join_requests.any? && @group.join_requests.find_by(customer: current_customer).try(:status) == 'approved') %>
+        <div class="chat-form">
+          <%= form_with(model: [@group, @group.posts.build], local: true, class: "post-form", multipart: true) do |f| %>
+            <%= f.text_area :comment, placeholder: "コメント", class: "comment-field" %>
+            <br><br>
+            <%= f.submit '投稿', class: "post-button" %>
           <% end %>
-          <%= button_to '承認する', approve_join_group_path(@group, request_id: request.id), method: :post, class: "approve-join-button" %>
-          <%= button_to '拒否する', reject_join_group_path(@group, request_id: request.id), method: :post, class: "reject-join-button" %>
         </div>
       <% end %>
-    <% end %>
+    </div>
 
-    <% if current_customer == @group.customers.first || @group.customers.include?(current_customer) || (@group.join_requests.any? && @group.join_requests.find_by(customer: current_customer).try(:status) == 'approved') %>
-      <div class="chat-form">
-        <%= form_with(model: [@group, @group.posts.build], local: true, class: "post-form", multipart: true) do |f| %>
-          <%= f.text_area :comment, placeholder: "コメント", class: "comment-field" %>
-      <br><br>
-      <div class="form-group file-input-wrapper">
-        <%= f.label :image, "画像を選択", class: "file-input-label" %>
-        <%= f.file_field :image, accept: "image/*", class: "form-control", id: 'imageInputCustom' %>
-        <p id="image-file-name-display-custom"></p>
-      </div>
-          <%= f.submit '投稿', class: "post-button" %>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
-</div>
+    <script>
+    document.addEventListener("turbolinks:load", function() {
+      const imageInputCustom = document.getElementById('imageInputCustom');
+      const imageFileNameDisplayCustom = document.getElementById('image-file-name-display-custom');
 
-<script>
-document.addEventListener("turbolinks:load", function() {
-  const imageInputCustom = document.getElementById('imageInputCustom');
-  const imageFileNameDisplayCustom = document.getElementById('image-file-name-display-custom');
-
-  if (imageInputCustom) {
-    imageInputCustom.addEventListener('change', function() {
-      const fileName = imageInputCustom.files[0] ? imageInputCustom.files[0].name : '';
-      imageFileNameDisplayCustom.textContent = fileName;
+      if (imageInputCustom) {
+        imageInputCustom.addEventListener('change', function() {
+          const fileName = imageInputCustom.files[0] ? imageInputCustom.files[0].name : '';
+          imageFileNameDisplayCustom.textContent = fileName;
+        });
+      }
     });
-  }
-});
-</script>
+    </script>

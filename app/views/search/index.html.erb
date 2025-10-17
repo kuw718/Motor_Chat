@@ -8,6 +8,12 @@ a {
 a:hover {
     color: #333333; /* ホバー時のリンク色 */
 }
+
+.card-img-top {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
 </style>
 
 <h1>検索結果</h1>
@@ -32,11 +38,11 @@ a:hover {
         <% @results.each do |post_image| %>
           <div class="card mb-3">
             <%= link_to post_image_path(post_image.id) do %>
-              <%= image_tag post_image.resized_image, class: "card-img-top image-slide-down", loading: "lazy" %>
+              <%= image_tag post_image.image, class: "card-img-top image-slide-down", loading: "lazy" if post_image.image.attached? %>
             <% end %>
             <div class="card-body">
               <h5 class="card-text">
-                <%= image_tag post_image.customer.get_profile_image(210,210), class: "rounded image-slide-down profile-image" %>
+                <%= image_tag post_image.customer.get_profile_image, class: "rounded image-slide-down profile-image" %>
                 <span class="customer-name"><%= post_image.customer.name %></span>
               </h5>
               <h3 class="card-title"><%= post_image.title %></h3>

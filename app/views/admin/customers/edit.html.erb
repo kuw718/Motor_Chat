@@ -2,20 +2,20 @@
 
 <%= form_with(model: @customer, url: admin_customer_path(@customer), local: true, method: :patch, multipart: true) do |f| %>
   <div>
-    <%= f.label :name, 'Name' %>
+    <%= f.label :name, '名前' %>
     <%= f.text_field :name %>
   </div>
   <div>
-    <%= f.label :email, 'Email' %>
+    <%= f.label :email, 'メールアドレス' %>
     <%= f.text_field :email %>
   </div>
   <div>
-    <%= f.label :profile_image, 'Profile Image' %>
+    <%= f.label :profile_image, 'プロフィール画像' %>
     <%= f.file_field :profile_image %>
-    <p>Current Image: <%= image_tag @customer.get_profile_image(100,100) %></p>
+    <p>現在の画像： <%= image_tag @customer.get_profile_image %></p>
   </div>
   <div>
-    <%= f.submit 'Update Customer' %>
+    <%= f.submit '更新する・戻る' %>
   </div>
 <% end %>
 

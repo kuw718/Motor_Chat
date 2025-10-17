@@ -21,9 +21,9 @@ class PostImage < ApplicationRecord
     favorites.exists?(customer_id: customer.id)
   end
   
-def resized_image
-  return unless image.attached? # 画像がアタッチされているか確認
-  image.variant(resize_to_limit: [800, 800]).processed if image.attached? # アタッチされている場合のみ処理を行う
-end
+  def resized_image
+    return unless image.attached? # 画像がアタッチされているか確認
+    image # そのまま返す（variantを使わない）
+  end
 
 end

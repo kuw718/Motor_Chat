@@ -83,18 +83,21 @@ ul {
           <h5 class="card-title"><%= post_image.title %></h5>
           <p class="card-text"><%= post_image.caption %></p>
           <p class="card-text"><%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id) %></p>
-          <p class="card-name"><%= image_tag post_image.customer.get_profile_image(100,100), class: "rounded image-slide-down profile-image" %>&nbsp;<%= post_image.customer.name %></p>
+          <p class="card-name"><%= image_tag post_image.customer.get_profile_image, class: "rounded image-slide-down profile-image" %>&nbsp;<%= post_image.customer.name %></p>
         </div>
       </div>
     <% end %>
-    <h5>情報をお持ちの方、協力してくださる方はコメントでの情報共有をお願い致しますm_ _m</h5>
+    <h5>情報をお持ちの方、<br>協力してくださる方はコメントでの情報共有をお願い致します</h5>
   </div>
 <% end %>
 
 <br><br><br>
+              
+<h1>みんなの投稿</h1>
 
-<h2>みんなの投稿</h2>
-<div class="row row-cols-1 row-cols-md-2 g-4">
+<pre></pre><pre></pre>
+            
+<div class="row row-cols-1 row-cols-md-4 g-4"> <!-- 横4列に固定 -->
   <% @post_images.shuffle.take(4).each do |post_image| %>
     <div class="col">
       <div class="card mb-3">
@@ -102,10 +105,13 @@ ul {
           <%= image_tag post_image.resized_image, class: "card-img-top image-slide-down" %>
         <% end %>
         <div class="card-body">
-          <h5 class="card-title"><%= post_image.title %></h5>
+          <h1 class="card-title"><%= post_image.title %></h1>
           <p class="card-text"><%= post_image.caption %></p>
           <p class="card-text"><%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id) %></p>
-          <p class="card-name"><%= image_tag post_image.customer.get_profile_image(100,100), class: "rounded image-slide-down profile-image" %>&nbsp;<%= post_image.customer.name %></p>
+            <p class="card-name">
+              <%= image_tag post_image.customer.get_profile_image, class: "rounded image-slide-down profile-image" %>
+              &nbsp;<%= post_image.customer.name %>
+            </p>
         </div>
       </div>
     </div>
@@ -115,9 +121,9 @@ ul {
 
 <br><br><br>
 
-<h2>新着スレ</h2>
+<h2>最近のスレッド</h2>
 <% if @group_joining.empty? %>
-  <p class="no-groups">参加中のグループはありません。</p>
+  <p class="no-groups">スレッドがありません。</p>
 <% else %>
   <div class="group-list">
     <ul class="list-group mb-4">
@@ -150,4 +156,4 @@ ul {
 
 <br>
 
-<%= link_to "すべてのスレを見る＞", groups_path %>
+<%= link_to "すべてのスレッドを見る＞", groups_path %>

@@ -1,20 +1,21 @@
-<h1>投稿編集</h1>
-
+<pre></pre>
+<h1>投稿の編集</h1>
+<pre></pre>
 <%= form_with model: [:admin, @post_image], local: true do |f| %>
   <div class="form-group">
-    <%= f.label :title %>
+    <%= f.label :タイトル %>
     <%= f.text_field :title, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= f.label :caption %>
+    <%= f.label :説明 %>
     <%= f.text_area :caption, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= f.label :image %>
+    <%= f.label :画像を選択 %>
     <%= f.file_field :image, class: "form-control" %>
   </div>
 
-  <%= f.submit '更新する', class: "btn btn-primary" %>
+  <%= f.submit '更新する・戻る', class: "btn btn-primary" %>
 <% end %>

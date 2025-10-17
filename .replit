@@ -34,10 +34,11 @@ localPort = 5000
 externalPort = 80
 
 [[ports]]
-localPort = 40769
+localPort = 35003
 externalPort = 3000
 
 [deployment]
 deploymentTarget = "vm"
-run = ["bash", "-c", "unset DATABASE_URL && export NODE_OPTIONS='--openssl-legacy-provider' && bundle exec rails db:migrate && bundle exec puma -C config/puma.rb"]
-build = ["bash", "-c", "unset DATABASE_URL && export NODE_OPTIONS='--openssl-legacy-provider' && bundle install --without development test && bundle exec rails assets:precompile"]
+run = ["bash", "-c", "mkdir -p /tmp/bundle_tmp && export TMPDIR=/tmp/bundle_tmp && unset DATABASE_URL && export NODE_OPTIONS='--openssl-legacy-provider' && bundle exec rails db:migrate && bundle exec puma -C config/puma.rb"]
+build = ["bash", "-c", "mkdir -p /tmp/bundle_tmp && export TMPDIR=/tmp/bundle_tmp && unset DATABASE_URL && export NODE_OPTIONS='--openssl-legacy-provider' && bundle install --without development test && bundle exec rails assets:precompile"]
+publicDir = "public"
