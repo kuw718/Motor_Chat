@@ -49,7 +49,8 @@ end
 gem 'net-smtp'
 gem 'net-pop'
 gem 'net-imap'
-gem 'net-protocol'
-gem 'timeout'
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem 'net-protocol', '~> 0.2.2'
+gem 'timeout', '~> 0.4.3'
